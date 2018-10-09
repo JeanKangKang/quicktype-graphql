@@ -760,16 +760,7 @@ async function addTypesInSchema(
                 if (!typeNames.areInferred) {
                     return typeNames;
                 }
-                let title = schema.title;
-                if (typeof title !== "string") {
-                    title = loc.canonicalRef.definitionName;
-                }
-
-                if (typeof title === "string") {
-                    return TypeNames.make(new Set([title]), new Set(), schema.$ref !== undefined);
-                } else {
-                    return typeNames.makeInferred();
-                }
+                return typeNames.makeInferred();
             });
         }
 
@@ -1064,12 +1055,8 @@ async function refsInSchemaForURI(
         return mapMap(mapFromObject(schema), (_, name) => ref.push(name));
     } else {
         let name: string;
-        if (typeof schema === "object" && typeof schema.title === "string") {
-            name = schema.title;
-        } else {
-            const maybeName = nameFromURI(uri);
-            name = maybeName !== undefined ? maybeName : defaultName;
-        }
+        const maybeName = nameFromURI(uri);
+        name = maybeName !== undefined ? maybeName : defaultName;
         return [name, ref];
     }
 }
