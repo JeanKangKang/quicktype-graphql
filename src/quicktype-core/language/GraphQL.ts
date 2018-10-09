@@ -521,7 +521,7 @@ export class TypeScriptRenderer extends TypeScriptFlowBaseRenderer {
     protected emitEnum(e: EnumType, enumName: Name): void {
         this.emitDescription(this.descriptionForType(e));
         this.emitBlock(["enum ", enumName, " "], "", () => {
-            this.forEachEnumCase(e, "none", (name, jsonName) => {
+            this.forEachEnumCase(e, "none", (name) => {
                 this.emitLine(name);
                 // this.emitLine(name, ` = "${utf16StringEscape(jsonName)}",`);
             });
